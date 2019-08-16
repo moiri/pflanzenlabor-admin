@@ -1,0 +1,8 @@
+AuthType Basic
+AuthName "Password Protected Area"
+AuthUserFile /home/moiri/Documents/git-pflanzenlabor-admin/.htpasswd
+Require valid-user
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule . index.php [L]

@@ -1,0 +1,83 @@
+.invert-link-img a
+{
+    text-decoration: none;
+}
+a.disabled
+{
+    pointer-events: none;
+}
+a.navbar-logo
+{
+    width: 64px;
+    height: 64px;
+    background-image: url("../img/nav/logo-icon-light.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+a.navbar-logo:hover
+{
+    background-image: url("../img/nav/hov_logo-icon-light.svg");
+}
+.form-check-label
+{
+    margin-top: 0.25rem;
+    margin-left: 0.5rem;
+}
+.form-check-control
+{
+    margin-top: -0.5rem;
+}
+.archive:last-child
+{
+    margin-bottom: 0 !important;
+}
+.footer-icon
+{
+    width: 48px;
+    height: 48px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.footer-icon-newsletter
+{
+    background-image: url("../img/footer/newsletter.png");
+}
+.footer-icon-link:hover > .footer-icon-newsletter
+{
+    background-image: url("../img/footer/hov_newsletter.png");
+}
+.footer-icon-contact
+{
+    background-image: url("../img/footer/contact.png");
+}
+.footer-icon-link:hover > .footer-icon-contact
+{
+    background-image: url("../img/footer/hov_contact.png");
+}
+.footer-icon-ig
+{
+    background-image: url("../img/footer/ig.png");
+}
+.footer-icon-link:hover > .footer-icon-ig
+{
+    background-image: url("../img/footer/hov_ig.png");
+}
+.footer-icon-container
+{
+    width: 64px;
+    float: right;
+}
+.fax_field
+{
+    display: none;
+}
+.popup
+{
+    cursor: pointer;
+}
+textarea.md
+{
+    font-family: monospace;
+}
