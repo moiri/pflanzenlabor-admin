@@ -35,7 +35,7 @@ $router->map( 'GET', '/', function( $router, $db ) {
     $page = new Home( $router, $db );
     $page->print_view();
 }, 'home');
-$router->map( 'GET', '/impressionen/[i:id_imp]?/[i:id_cont]?', function( $router, $db, $id_imp=null, $id_cont=null ) {
+$router->map( 'GET|POST', '/impressionen/[i:id_imp]?/[i:id_cont]?', function( $router, $db, $id_imp=null, $id_cont=null ) {
     $page = new Impressions( $router, $db, $id_imp, $id_cont );
     $page->print_view();
 }, 'impressions');

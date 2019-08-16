@@ -1,4 +1,1 @@
-<div class="form-group">
-    <label><?php echo $name; ?></label>
-    <textarea class="form-control md"><?php echo $value; ?></textarea>
-</div>
+<textarea class="form-control md" name="impressions_fields[<?php echo $id; ?>][content]"><?php echo $value; ?></textarea>

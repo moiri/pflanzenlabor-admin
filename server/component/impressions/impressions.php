@@ -13,24 +13,92 @@ class Impressions extends Page {
         parent::__construct( $router );
         $this->db = $db;
         $this->append_js_includes('impressions.js');
+
+        $res_i = $this->update_impressions($_POST['impressions'] ?? null, $id_imp);
+        $res_ip = $this->update_positions_impressions($_POST['positions-impressions'] ?? null);
         $this->item_imp['id'] = null;
         if($id_imp !== null)
         {
             $sql = "SELECT * FROM impressions WHERE id = :id";
             $this->item_imp = $this->db->queryDbFirst($sql, array(':id' => $id_imp));
         }
+        $this->item_imp['update'] = $res_i;
+        $this->item_imp['update_p'] = $res_ip;
+
+        $res_c = $this->update_impressions_content($_POST['impressions_content'] ?? null, $id_cont);
+        $res_f = $this->update_impressions_fields($_POST['impressions_fields'] ?? null, $id_cont);
+        $res_cp = $this->update_positions_content($_POST['positions-impressions_content'] ?? null, $id_imp);
         $this->item_cont['id'] = null;
         if($id_cont !== null)
         {
             $sql = "SELECT id, name FROM impressions_content
                 WHERE id = :id";
             $this->item_cont = $this->db->queryDbFirst($sql, array(':id' => $id_cont));
-            $sql = "SELECT i.content, it.name AS type FROM impressions_fields AS i
+            $sql = "SELECT i.id, i.content, it.name AS type FROM impressions_fields AS i
                 LEFT JOIN impressions_content AS ic ON ic.id = i.id_impressions_content
                 LEFT JOIN impressions_fields_type AS it ON it.id = i.id_type
                 WHERE i.id_impressions_content = :id";
             $this->item_cont['fields'] = $this->db->queryDb($sql, array(':id' => $id_cont));
         }
+        $this->item_cont['update'] = $res_c ?? $res_f ?? null;
+        if($res_c !== null && $res_f !== null)
+            $this->item_cont['update'] = $res_c & $res_f;
+        $this->item_cont['update_p'] = $res_cp;
+    }
+
+    private function update_impressions($data, $id)
+    {
+        if($data === null || $id === null)
+            return null;
+        if($data['id_class'] === "null")
+            $data['id_class'] = null;
+        return $this->db->updateByUid('impressions', $data, $id);
+    }
+
+    private function update_impressions_content($data, $id)
+    {
+        if($data === null || $id === null)
+            return null;
+        return $this->db->updateByUid('impressions_content', $data, $id);
+    }
+
+    private function update_impressions_fields($data, $id)
+    {
+        if($data === null || $id === null)
+            return null;
+        $res = true;
+        foreach($data as $key => $items)
+            $res &= $this->db->updateByUid('impressions_fields', $items, $key);
+        return $res;
+    }
+
+    private function update_positions_impressions($data)
+    {
+        if($data === null)
+            return null;
+        $orders = explode(',', $data);
+        $sql = "SELECT * FROM impressions ORDER BY position";
+        $items = $this->db->queryDb($sql);
+        $res = true;
+        foreach($items as $idx => $item)
+            $res &= $this->db->updateByUid("impressions",
+                array("position" => $orders[$idx]), $item['id']);
+        return $res;
+    }
+
+    private function update_positions_content($data, $id)
+    {
+        if($data === null || $id === null)
+            return null;
+        $orders = explode(',', $data);
+        $sql = "SELECT * FROM impressions_content WHERE id_impressions = :id
+            ORDER BY position";
+        $items = $this->db->queryDb($sql, array(':id' => $id));
+        $res = true;
+        foreach($items as $idx => $item)
+            $res &= $this->db->updateByUid("impressions_content",
+                array("position" => $orders[$idx]), $item['id']);
+        return $res;
     }
 
     private function print_class_selection()
@@ -83,6 +151,16 @@ class Impressions extends Page {
         $this->print_list($impressions, "list-impressions", $this->item_imp['id']);
     }
 
+    private function print_impression_alert($update)
+    {
+        if($update === null)
+            return;
+        if($update)
+            require __DIR__ . "/v_impression_alert_success.php";
+        else
+            require __DIR__ . "/v_impression_alert_fail.php";
+    }
+
     private function print_impression_form()
     {
         if($this->item_imp['id'] === null)
@@ -103,11 +181,17 @@ class Impressions extends Page {
         {
             $name = $item['type'];
             $value = $item['content'];
-            if($item['type'] === "cite")
-                require __DIR__ . "/v_impression_content_form_textarea.php";
-            else
-                require __DIR__ . "/v_impression_content_form_field.php";
+            $id = intval($item['id']);
+            require __DIR__ . "/v_impression_content_form_field.php";
         }
+    }
+
+    private function print_impression_content_form_field($id, $value, $type)
+    {
+        if($type === "cite")
+            require __DIR__ . "/v_impression_content_form_textarea.php";
+        else
+            require __DIR__ . "/v_impression_content_form_input.php";
     }
 
     private function print_list($items, $id="", $active_id=null)
@@ -125,7 +209,7 @@ class Impressions extends Page {
 
     private function print_list_items($items, $active_id)
     {
-        foreach($items as $item)
+        foreach($items as $idx => $item)
         {
             $id = intval($item['id']);
             $name = $item['title'];
@@ -145,6 +229,11 @@ class Impressions extends Page {
             else
                 require __DIR__ . "/v_list_item.php";
         }
+    }
+
+    private function print_position_form($id)
+    {
+        require __DIR__ . '/v_position_form.php';
     }
 
     public function print_view() {
