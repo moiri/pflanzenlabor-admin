@@ -20,7 +20,8 @@ $(document).ready(function() {
 
     function sort_items($list, $input) {
         var order = [];
-        $list.find('span.badge').each(function(idx) {
+        var $span = $list.find('span.badge');
+        $span.each(function(idx) {
             order[$(this).text()] = idx * 10;
         });
         $input.val(order);
