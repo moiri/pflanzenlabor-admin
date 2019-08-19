@@ -98,7 +98,7 @@ class Impressions extends Page {
         {
             $content[$key]['url'] = $this->router->generate('impressions',
                 array('id_imp' => intval($this->item_imp['id']),
-                'id_cont' => intval($item['id']))) . '#impression-content-form';
+                'id_cont' => intval($item['id'])));
         }
         $this->print_list($content, "list-content", $this->item_cont['id']);
     }
@@ -115,11 +115,11 @@ class Impressions extends Page {
                 $impressions[$key]['title'] = $item['name'];
             if($impressions[$key]['title'] == "")
                 $impressions[$key]['title'] = "<em>undefined</em>";
-            if($item['name'] != "")
-                $impressions[$key]['code'] = $item['name'];
+            /* if($item['name'] != "") */
+            /*     $impressions[$key]['code'] = $item['name']; */
 
             $impressions[$key]['url'] = $this->router->generate('impressions',
-                array('id_imp' => intval($item['id']))) . '#impression-form';
+                array('id_imp' => intval($item['id'])));
         }
         $this->print_list($impressions, "list-impressions", $this->item_imp['id']);
     }
@@ -137,14 +137,20 @@ class Impressions extends Page {
     private function print_impression_form($new=false)
     {
         if($this->item_imp['id'] === null && !$new)
+        {
+            echo '<em class="text-muted">Keine Impression ausgewählt</em>';
             return;
+        }
         require __DIR__ . "/v_impression_form.php";
     }
 
     private function print_impression_content_form($new=false)
     {
         if($this->item_cont['id'] === null && !$new)
+        {
+            echo '<em class="text-muted">Keine Impressionsinhalt ausgewählt</em>';
             return;
+        }
         require __DIR__ . "/v_impression_content_form.php";
     }
 
@@ -186,7 +192,7 @@ class Impressions extends Page {
         }
     }
 
-    private function print_list($items, $id, $active_id, $new_url="")
+    private function print_list($items, $id, $active_id)
     {
         if($items === null)
             return;

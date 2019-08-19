@@ -16,6 +16,14 @@ class Nav
     {
         if( $this->router->is_active( $route_name ) )
             return $this->active_css;
+        $uri = $_SERVER['REQUEST_URI'];
+        if( $route_name == "impressions" ) {
+            $id_imp = $this->router->get_route_param( 'id_imp' );
+            $id_cont = $this->router->get_route_param( 'id_cont' );
+            if( $this->router->generate( 'impressions',
+                    array( 'id_imp' => $id_imp, 'id_cont' => $id_cont ) ) == $uri )
+                return $this->active_css;
+        }
         return '';
     }
 

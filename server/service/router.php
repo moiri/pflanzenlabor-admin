@@ -30,7 +30,7 @@ class Router extends AltoRouter {
         else if( !is_null($this->route['params']) && array_key_exists( $param_name, $this->route['params'] ) )
             return $this->route['params'][$param_name];
         else
-            return false;
+            return null;
     }
 }
 
