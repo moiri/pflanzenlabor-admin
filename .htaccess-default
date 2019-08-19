@@ -1,6 +1,6 @@
 AuthType Basic
 AuthName "Password Protected Area"
-AuthUserFile /home/moiri/Documents/git-pflanzenlabor-admin/.htpasswd
+AuthUserFile __path_to_htpasswd__
 Require valid-user
 
 RewriteEngine On
