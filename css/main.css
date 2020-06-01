@@ -81,3 +81,9 @@ textarea.md
 {
     font-family: monospace;
 }
+.text-prewrap {
+    white-space: pre-wrap;
+}
+i.fa-gift {
+    cursor: pointer;
+}

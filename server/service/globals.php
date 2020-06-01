@@ -22,6 +22,11 @@ define( 'PAGE_STATE_INVALID', 300 );
 define( 'CLASS_TYPE_WALK_ID', 2 );
 define( 'GIFT_PACKET_IDS', array(6, 8) );
 
+define( 'ID_PACKET_GIFT_SOLO', 6 );
+define( 'ID_PACKET_GIFT_PARTNER', 8 );
+define( 'ID_PACKET_PARTNER', 7 );
+define( 'ID_PACKET_SINGLE', 9 );
+
 function split_by_cr($text_line, $has_last_margin = false)
 {
     $text = "";

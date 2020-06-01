@@ -10,9 +10,14 @@
 <meta name="DC.language" content="de" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css" href="<?php echo $this->router->get_asset_path("/plugin/bootstrap/css/bootstrap.min.css"); ?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo $this->router->get_asset_path("/plugin/datatables/css/datatables.min.css"); ?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo $this->router->get_asset_path("/plugin/datatables/css/dataTables.bootstrap4.min.css"); ?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo $this->router->get_asset_path("/plugin/fontawesome/css/all.min.css"); ?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo $this->router->get_asset_path("/css/main.css"); ?>" />
 <script src="<?php echo $this->router->get_asset_path("/plugin/jquery/jquery.min.js"); ?>" type="text/javascript"></script>
 <script src="<?php echo $this->router->get_asset_path("/plugin/bootstrap/js/bootstrap.min.js"); ?>" type="text/javascript"></script>
+<script src="<?php echo $this->router->get_asset_path("/plugin/datatables/js/datatables.min.js"); ?>" type="text/javascript"></script>
+<script src="<?php echo $this->router->get_asset_path("/plugin/datatables/js/dataTables.bootstrap4.min.js"); ?>" type="text/javascript"></script>
 <script src="<?php echo $this->router->get_asset_path("/plugin/sortable/Sortable.min.js"); ?>" type="text/javascript"></script>
 <script src="<?php echo $this->router->get_asset_path("/js/main.js"); ?>" type="text/javascript"></script>
 <?php $this->print_js_includes(); ?>

@@ -9,6 +9,7 @@ require_once "./server/component/invalid/invalid.php";
 require_once "./server/component/404/404.php";
 require_once "./server/component/classes/classes.php";
 require_once "./server/component/impressions/impressions.php";
+require_once "./server/component/orders/orders.php";
 
 /**
  * Helper function to show stacktrace also of wranings.
@@ -39,6 +40,10 @@ $router->map( 'GET|POST', '/impressionen/[i:id_imp]?/[i:id_cont]?', function( $r
     $page = new Impressions( $router, $db, $id_imp, $id_cont );
     $page->print_view();
 }, 'impressions');
+$router->map( 'GET|POST', '/orders/', function( $router, $db) {
+    $page = new Orders( $router, $db );
+    $page->print_view();
+}, 'orders');
 $router->map( 'GET', '/kurse', function( $router, $db ) {
     $page = new Classes( $router, $db );
     $page->print_view();

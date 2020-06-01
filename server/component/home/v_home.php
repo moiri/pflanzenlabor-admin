@@ -10,6 +10,7 @@ Admin Bereich fürs <a href="https://www.pflanzenlabor.ch" target="_blank">Pflan
     <div class="card-deck mt-3 text-center">
         <?php $this->print_link("courses", "Programm"); ?>
         <?php $this->print_link("impressions", "Impressionen"); ?>
+        <?php $this->print_link("orders", "Bestellungen"); ?>
     </div>
     <?php $this->print_footer(); ?>
 </div>

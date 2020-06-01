@@ -13,6 +13,9 @@
             <li class="nav-item">
                 <a class="nav-link <?php echo $this->get_active_css( 'impressions' ); ?>" href="<?php echo $this->router->generate( 'impressions' ); ?>">Impressionen</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link <?php echo $this->get_active_css( 'orders' ); ?>" href="<?php echo $this->router->generate( 'orders' ); ?>">Bestellungen</a>
+            </li>
         </ul>
     </div>
 </nav>
